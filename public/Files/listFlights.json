@@ -1,0 +1,241 @@
+{
+    "airlines": [
+      {
+        "code": "AC",
+        "name": "Air Canada"
+      },
+      {
+        "code": "WS",
+        "name": "WestJet"
+      },
+      {
+        "code": "UA",
+        "name": "United Airlines"
+      }
+    ],
+    "airports": [
+      {
+        "code": "YUL",
+        "city_code": "YMQ",
+        "name": "Pierre Elliott Trudeau International",
+        "city": "Montreal",
+        "country_code": "CA",
+        "latitude": 45.457714,
+        "longitude": -73.749908,
+        "timezone": "America/Montreal"
+      },
+      {
+        "code": "YVR",
+        "city_code": "YVR",
+        "name": "Vancouver International",
+        "city": "Vancouver",
+        "country_code": "CA",
+        "latitude": 49.194698,
+        "longitude": -123.179192,
+        "timezone": "America/Vancouver"
+      },
+      {
+        "code": "YYZ",
+        "city_code": "YYZ",
+        "name": "Toronto Pearson International",
+        "city": "Toronto",
+        "country_code": "CA",
+        "latitude": 43.677718,
+        "longitude": -79.624819,
+        "timezone": "America/Toronto"
+      },
+      {
+        "code": "YEG",
+        "city_code": "YEG",
+        "name": "Edmonton International",
+        "city": "Edmonton",
+        "country_code": "CA",
+        "latitude": 53.309723,
+        "longitude": -113.580521,
+        "timezone": "America/Edmonton"
+      }
+    ],
+    "flights": [
+      {
+        "airline": "AC",
+        "number": "301",
+        "departure_airport": "YUL",
+        "departure_time": "07:30",
+        "arrival_airport": "YVR",
+        "duration": 330,
+        "price": "600.31"
+      },
+      {
+        "airline": "WS",
+        "number": "304",
+        "departure_airport": "YVR",
+        "departure_time": "08:55",
+        "arrival_airport": "YUL",
+        "duration": 277,
+        "price": "499.93"
+      },
+      {
+        "airline": "UA",
+        "number": "302",
+        "departure_airport": "YYZ",
+        "departure_time": "13:45",
+        "arrival_airport": "YEG",
+        "duration": 330,
+        "price": "620.45"
+      },
+      {
+        "airline": "AC",
+        "number": "305",
+        "departure_airport": "YEG",
+        "departure_time": "16:30",
+        "arrival_airport": "YYZ",
+        "duration": 277,
+        "price": "530.15"
+      },
+      {
+        "airline": "WS",
+        "number": "303",
+        "departure_airport": "YUL",
+        "departure_time": "19:15",
+        "arrival_airport": "YVR",
+        "duration": 330,
+        "price": "580.75"
+      },
+      {
+        "airline": "UA",
+        "number": "306",
+        "departure_airport": "YVR",
+        "departure_time": "21:50",
+        "arrival_airport": "YUL",
+        "duration": 277,
+        "price": "485.60"
+      },
+      {
+        "airline": "AC",
+        "number": "307",
+        "departure_airport": "YYZ",
+        "departure_time": "06:00",
+        "arrival_airport": "YEG",
+        "duration": 330,
+        "price": "610.90"
+      },
+      {
+        "airline": "WS",
+        "number": "308",
+        "departure_airport": "YEG",
+        "departure_time": "09:15",
+        "arrival_airport": "YYZ",
+        "duration": 277,
+        "price": "510.75"
+      },
+      {
+        "airline": "UA",
+        "number": "309",
+        "departure_airport": "YUL",
+        "departure_time": "14:20",
+        "arrival_airport": "YVR",
+        "duration": 330,
+        "price": "630.40"
+      },
+      {
+        "airline": "AC",
+        "number": "310",
+        "departure_airport": "YVR",
+        "departure_time": "17:30",
+        "arrival_airport": "YUL",
+        "duration": 277,
+        "price": "540.20"
+      },
+      {
+        "airline": "WS",
+        "number": "311",
+        "departure_airport": "YYZ",
+        "departure_time": "19:45",
+        "arrival_airport": "YEG",
+        "duration": 330,
+        "price": "590.90"
+      },
+      {
+        "airline": "UA",
+        "number": "312",
+        "departure_airport": "YEG",
+        "departure_time": "22:30",
+        "arrival_airport": "YYZ",
+        "duration": 277,
+        "price": "505.10"
+      },
+      {
+        "airline": "AC",
+        "number": "313",
+        "departure_airport": "YUL",
+        "departure_time": "06:30",
+        "arrival_airport": "YVR",
+        "duration": 330,
+        "price": "610.60"
+      },
+      {
+        "airline": "WS",
+        "number": "314",
+        "departure_airport": "YVR",
+        "departure_time": "09:45",
+        "arrival_airport": "YUL",
+        "duration": 277,
+        "price": "510.35"
+      },
+      {
+        "airline": "UA",
+        "number": "315",
+        "departure_airport": "YYZ",
+        "departure_time": "14:50",
+        "arrival_airport": "YEG",
+        "duration": 330,
+        "price": "630.10"
+      },
+      {
+        "airline": "AC",
+        "number": "316",
+        "departure_airport": "YEG",
+        "departure_time": "18:00",
+        "arrival_airport": "YYZ",
+        "duration": 277,
+        "price": "540.80"
+      },
+      {
+        "airline": "WS",
+        "number": "317",
+        "departure_airport": "YUL",
+        "departure_time": "20:15",
+        "arrival_airport": "YVR",
+        "duration": 330,
+        "price": "590.30"
+      },
+      {
+        "airline": "UA",
+        "number": "318",
+        "departure_airport": "YVR",
+        "departure_time": "23:00",
+        "arrival_airport": "YUL",
+        "duration": 277,
+        "price": "510.50"
+      },
+      {
+        "airline": "AC",
+        "number": "319",
+        "departure_airport": "YUL",
+        "departure_time": "07:30",
+        "arrival_airport": "YVR",
+        "duration": 330,
+        "price": "600.40"
+      },
+      {
+        "airline": "WS",
+        "number": "320",
+        "departure_airport": "YVR",
+        "departure_time": "09:55",
+        "arrival_airport": "YUL",
+        "duration": 277,
+        "price": "500.90"
+      }
+    ]
+  }
+  
