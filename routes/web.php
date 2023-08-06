@@ -15,7 +15,7 @@ use App\Http\Controllers\FlightController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/search');
 });
 
 Route::get('/search', [FlightController::class, 'Search'])->name('search');

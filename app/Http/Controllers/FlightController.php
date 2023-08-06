@@ -47,7 +47,7 @@ class FlightController extends Controller
             $arrivalAirport = $airports->where('code', $flight['arrival_airport'])->first();
             $arrivalTimezone = $arrivalAirport['timezone'];
 
-            $departure_time = $flight['departure_time']; 
+            $departure_time = $flight['departure_time'];
 
             // Create DateTimeZone objects for both time zones
             $source_timezone = new DateTimeZone($departureTimezone);
@@ -91,7 +91,6 @@ class FlightController extends Controller
                 );
             }
             return $flight;
-            
         });
 
 
