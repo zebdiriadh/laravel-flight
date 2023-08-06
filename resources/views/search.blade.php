@@ -55,7 +55,7 @@
 
 <!-- Display search results or random results -->
 <div class="mt-4">
-    @if ($allFlights->isNotEmpty())
+    @if ($paginatedFlights->isNotEmpty())
         <h2>Flight Results:</h2>
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
@@ -72,7 +72,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($allFlights as $flight)
+                    @foreach ($paginatedFlights as $flight)
                         @if (isset($flight['inbound']))
                             <tr>
                                 <td>
@@ -125,6 +125,8 @@
                 </tbody>
             </table>
         </div>
+        <!-- Pagination links -->
+        {{ $paginatedFlights->links() }}
     @else
         <p>No flights available for the selected departure time.</p>
     @endif
