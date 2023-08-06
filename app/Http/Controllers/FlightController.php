@@ -8,7 +8,7 @@ use DateTimeZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 
 class FlightController extends Controller
 {
@@ -119,20 +119,45 @@ class FlightController extends Controller
             });
         }
 
+        $allFlights = isset($combinedFlights) ? $combinedFlights : $filteredFlights;
+
+        // Get the sorting parameter from the query string
+        $sort = $request->query('sort');
+
+        // Determine the column and direction for sorting
+        $sortColumn = '';
+        $sortDirection = 'asc';
+
+        if ($sort) {
+            $sortColumn = $sort;
+            $sortDirection = 'asc';
+            if (substr($sort, 0, 1) === '-') {
+                $sortColumn = substr($sort, 1);
+                $sortDirection = 'desc';
+            }
+        }
+
+        // Sort the flights based on the chosen criteria
+        if ($sortColumn && in_array($sortColumn, ['airline', 'flight_number', 'departure_airport', 'departure_time', 'arrival_airport', 'arrival_time', 'duration', 'price'])) {
+            $allFlights = $allFlights->sortBy($sortColumn, SORT_REGULAR, $sortDirection === 'desc');
+        }
+
         // Paginate the results with 5 flights per page
         $perPage = 5;
         $currentPage = $request->query('page', 1);
         $offset = ($currentPage - 1) * $perPage;
 
-        $allFlights = isset($combinedFlights) ? $combinedFlights : $filteredFlights;
-
-        $paginatedFlights = new LengthAwarePaginator(
-            $allFlights->slice($offset, $perPage),
-            $allFlights->count(),
-            $perPage,
-            $currentPage,
-            ['path' => $request->url(), 'query' => $request->query()]
-        );
+        // Check if the search results are already cached
+        $cacheKey = 'flight_search_results_' . md5($request->fullUrl());
+        $paginatedFlights = Cache::remember($cacheKey, now()->addMinutes(30), function () use ($allFlights, $offset, $perPage, $currentPage) {
+            return new LengthAwarePaginator(
+                $allFlights->slice($offset, $perPage),
+                $allFlights->count(),
+                $perPage,
+                $currentPage,
+                ['path' => request()->url(), 'query' => request()->query()]
+            );
+        });
 
         // Pass the merged flights, airlines, and airports data to the view
         return view('search', compact('allFlights', 'airlines', 'airports', 'paginatedFlights'));

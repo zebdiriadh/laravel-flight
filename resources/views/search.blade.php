@@ -50,27 +50,32 @@
     </div>
 </div>
 
-
-
-
 <!-- Display search results or random results -->
 <div class="mt-4">
     @if ($paginatedFlights->isNotEmpty())
         <h2>Flight Results:</h2>
         <div class="table-responsive">
+            <form action="{{ route('search') }}" method="GET">
+                <!-- Hidden fields to retain search parameters -->
+                <input type="hidden" name="origin" value="{{ request('origin') }}">
+                <input type="hidden" name="destination" value="{{ request('destination') }}">
+                <input type="hidden" name="departure_time" value="{{ request('departure_time') }}">
+                <input type="hidden" name="return_time" value="{{ request('return_time') }}">
+
             <table class="table table-bordered table-striped">
                 <thead class="thead-light">
                     <tr>
-                        <th>Airline</th>
-                        <th>Flight Number</th>
-                        <th>Departure Airport</th>
-                        <th>Departure Time</th>
-                        <th>Arrival Airport</th>
-                        <th>Arrival Time</th>
-                        <th>Duration</th>
-                        <th>Distance (km)</th>
-                        <th>Price</th>
-                        <th>Total</th>
+                        <th><a href="{{ route('search', http_build_query(array_merge(request()->all(), ['sort' => 'airline']))) }}">Airline</a></th>
+                        <th><a href="{{ route('search', http_build_query(array_merge(request()->all(), ['sort' => 'flight_number']))) }}">Flight Number</a></th>
+                        <th><a href="{{ route('search', http_build_query(array_merge(request()->all(), ['sort' => 'departure_airport']))) }}">Departure Airport</a></th>
+                        <th><a href="{{ route('search', http_build_query(array_merge(request()->all(), ['sort' => 'departure_time']))) }}">Departure Time</a></th>
+                        <th><a href="{{ route('search', http_build_query(array_merge(request()->all(), ['sort' => 'arrival_airport']))) }}">Arrival Airport</a></th>
+                        <th><a href="{{ route('search', http_build_query(array_merge(request()->all(), ['sort' => 'arrival_time']))) }}">Arrival Time</a></th>
+                        <th><a href="{{ route('search', http_build_query(array_merge(request()->all(), ['sort' => 'duration']))) }}">Duration</a></th>
+                        <th><a href="{{ route('search', http_build_query(array_merge(request()->all(), ['sort' => 'distance']))) }}">Distance (km)</a></th>
+                        <th><a href="{{ route('search', http_build_query(array_merge(request()->all(), ['sort' => 'price']))) }}">Price</a></th>
+                        <th><a href="{{ route('search', http_build_query(array_merge(request()->all(), ['sort' => 'total_price']))) }}">Total</a></th>
+                    
                     </tr>
                 </thead>
                 <tbody>
@@ -135,9 +140,11 @@
                     @endforeach
                 </tbody>
             </table>
+        </form>
         </div>
         <!-- Pagination links -->
-        {{ $paginatedFlights->links() }}
+        <!-- Pagination links with search parameters -->
+            {{ $paginatedFlights->appends(request()->query())->links() }}
     @else
         <p>No flights available for the selected departure time.</p>
     @endif
