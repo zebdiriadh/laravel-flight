@@ -99,6 +99,7 @@ class FlightController extends Controller
             return $flight['departure_airport'] === $originAirportCode && $flight['arrival_airport'] === $destinationAirportCode;
         });
 
+        // Generate Inbound and outbound flights
         if ($returnTime) {
             $outboundFlights = $flights->filter(function ($flight) use ($originAirportCode, $destinationAirportCode) {
                 return $flight['departure_airport'] === $originAirportCode && $flight['arrival_airport'] === $destinationAirportCode;
@@ -118,6 +119,7 @@ class FlightController extends Controller
             });
         }
 
+        // Set the flights based on oneway-trip or round trip
         $allFlights = isset($combinedFlights) ? $combinedFlights : $filteredFlights;
 
         // Get the sorting parameter from the query string
