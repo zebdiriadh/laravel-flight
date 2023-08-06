@@ -73,8 +73,23 @@ class FlightController extends Controller
             $target_time->add(new DateInterval('PT' . $flightDurationSeconds . 'S'));
             $target_time_str = $target_time->format('H:i');
 
-            $flight['arrival_time'] = $target_time_str; 
+            $flight['arrival_time'] = $target_time_str;
 
+
+            $departureAirportCode = $flight['departure_airport'];
+            $arrivalAirportCode = $flight['arrival_airport'];
+
+            $departureAirport = collect($airports)->firstWhere('code', $departureAirportCode);
+            $arrivalAirport = collect($airports)->firstWhere('code', $arrivalAirportCode);
+
+            if ($departureAirport && $arrivalAirport) {
+                $flight['distance'] = $this->calculateDistance(
+                    $departureAirport['latitude'],
+                    $departureAirport['longitude'],
+                    $arrivalAirport['latitude'],
+                    $arrivalAirport['longitude']
+                );
+            }
             return $flight;
             
         });
@@ -121,5 +136,24 @@ class FlightController extends Controller
 
         // Pass the merged flights, airlines, and airports data to the view
         return view('search', compact('allFlights', 'airlines', 'airports', 'paginatedFlights'));
+    }
+
+    private function calculateDistance($lat1, $lon1, $lat2, $lon2)
+    {
+        $earthRadius = 6371; // Radius of the Earth in kilometers
+        $lat1Rad = deg2rad($lat1);
+        $lon1Rad = deg2rad($lon1);
+        $lat2Rad = deg2rad($lat2);
+        $lon2Rad = deg2rad($lon2);
+
+        $dLat = $lat2Rad - $lat1Rad;
+        $dLon = $lon2Rad - $lon1Rad;
+
+        $a = sin($dLat / 2) * sin($dLat / 2) + cos($lat1Rad) * cos($lat2Rad) * sin($dLon / 2) * sin($dLon / 2);
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+
+        $distance = $earthRadius * $c;
+
+        return round($distance, 2); // Return the distance rounded to 2 decimal places
     }
 }

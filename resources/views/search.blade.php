@@ -68,7 +68,9 @@
                         <th>Arrival Airport</th>
                         <th>Arrival Time</th>
                         <th>Duration</th>
+                        <th>Distance (km)</th>
                         <th>Price</th>
+                        <th>Total</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -104,8 +106,15 @@
                                     <p>{{ $flight['inbound']['duration'] }} minutes</p>
                                 </td>
                                 <td>
-                                    <p>{{ ((float) $flight['outbound']['price']) }}</p>
-                                    <p>{{ ((float) $flight['inbound']['price']) }}</p>
+                                    <p>{{ $flight['outbound']['distance'] }} km
+                                    <p>{{ $flight['inbound']['distance'] }} km
+                                </td>
+                                <td>
+                                    <p>${{ ((float) $flight['outbound']['price']) }}</p>
+                                    <p>${{ ((float) $flight['inbound']['price']) }}</p>
+                                </td>
+                                <td>
+                                    <p>${{ ((float) $flight['outbound']['price']) + ((float) $flight['inbound']['price']) }}</p>
                                 </td>
                             </tr>
 
@@ -118,7 +127,9 @@
                                 <td>{{ $flight['arrival_airport'] }}</td>
                                 <td>{{ $flight['arrival_time'] }}</td>
                                 <td>{{ $flight['duration'] }} minutes</td>
-                                <td>{{ ((float) $flight['price']) }}</td>
+                                <td>{{ $flight['distance'] }} km</td>
+                                <td>${{ ((float) $flight['price']) }}</td>
+                                <td>${{ ((float) $flight['price']) }}</td>
                             </tr>
                         @endif
                     @endforeach
@@ -132,7 +143,4 @@
     @endif
 </div>
 
-
-    <!-- Your flight search form goes here -->
-    <!-- The tabs and form fields -->
 @endsection
