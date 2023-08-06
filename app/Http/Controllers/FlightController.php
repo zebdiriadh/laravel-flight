@@ -29,6 +29,8 @@ class FlightController extends Controller
         $destinationAirportCode = $request->input('destination');
         $departureTime = strtotime($request->input('departure_time'));
         $returnTime = strtotime($request->input('return_time'));
+
+       
        
         // Calculate the arrival_time for one-way flights and update the $flights collection
         $flights = $flights->map(function ($flight) use ( $airports, $departureTime, $returnTime) {
@@ -139,8 +141,6 @@ class FlightController extends Controller
                 
                 $flight['arrival_time'] = $target_time_str; // Set the calculated arrival_time
 
-               //$flight['return_time'] = 'N/A'; // Set the calculated return_time
-              // $flight['return_arrival_time'] = 'N/A';
                 return $flight;
             }
 
@@ -156,7 +156,8 @@ class FlightController extends Controller
 
      
 
-        if (!isset($returnTime)) {
+        if ($returnTime) {
+
             $outboundFlights = $flights->filter(function ($flight) use ($originAirportCode, $destinationAirportCode) {
                 return $flight['departure_airport'] === $originAirportCode && $flight['arrival_airport'] === $destinationAirportCode;
             });
@@ -175,7 +176,7 @@ class FlightController extends Controller
             });
 
         }
-
+    
         $allFlights = isset($combinedFlights) ? $combinedFlights :  $filteredFlights;
         
 

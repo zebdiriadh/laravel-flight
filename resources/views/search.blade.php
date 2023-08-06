@@ -52,56 +52,83 @@
 
 
 
-    <div class="container">
-        <h2>Flight Search Results</h2>
 
-        @if ($allFlights->count() > 0)
-            @foreach ($allFlights as $flight)
+<!-- Display search results or random results -->
+<div class="mt-4">
+    @if ($allFlights->isNotEmpty())
+        <h2>Flight Results:</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Airline</th>
+                        <th>Flight Number</th>
+                        <th>Departure Airport</th>
+                        <th>Departure Time</th>
+                        <th>Arrival Airport</th>
+                        <th>Arrival Time</th>
+                        <th>Duration</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($allFlights as $flight)
+                        @if (isset($flight['inbound']))
+                            <tr>
+                                <td>
+                                    <p>{{ $flight['outbound']['airline'] }} </p>
+                                    <p>{{ $flight['inbound']['airline'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $flight['outbound']['number'] }}</p>
+                                    <p>{{ $flight['inbound']['number'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $flight['outbound']['departure_airport'] }}</p>
+                                    <p>{{ $flight['inbound']['departure_airport'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $flight['outbound']['departure_time'] }}</p>
+                                    <p>{{ $flight['inbound']['departure_time'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $flight['outbound']['arrival_airport'] }}</p>
+                                    <p>{{ $flight['inbound']['arrival_airport'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $flight['outbound']['arrival_time'] }}</p>
+                                    <p>{{ $flight['inbound']['arrival_time'] }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $flight['outbound']['duration'] }} minutes</p>
+                                    <p>{{ $flight['inbound']['duration'] }} minutes</p>
+                                </td>
+                                <td>
+                                    <p>{{ ((float) $flight['outbound']['price']) }}</p>
+                                    <p>{{ ((float) $flight['inbound']['price']) }}</p>
+                                </td>
+                            </tr>
 
-                @if (isset($flight['inbound']))
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h4>Outbound</h4>
-                            <p>Airline: ({{ $flight['outbound']['airline'] }})</p>
-                            <p>Flight Number: {{ $flight['outbound']['number'] }}</p>
-                            <p>Departure Airport: ({{ $flight['outbound']['departure_airport'] }})</p>
-                            <p>Departure Time: {{ $flight['outbound']['departure_time'] }}</p>
-                            <p>Arrival Airport: ({{ $flight['outbound']['arrival_airport'] }})</p>
-                            <p>Arrival Time: {{ $flight['outbound']['arrival_time'] }}</p>
-                            <p>Duration: {{ $flight['outbound']['duration'] }} minutes</p>
-                        </div>
-                        <div class="col-md-6">
-                            <h4>Inbound</h4>
-                            <p>Airline: ({{ $flight['inbound']['airline'] }})</p>
-                            <p>Flight Number: {{ $flight['inbound']['number'] }}</p>
-                            <p>Departure Airport: ({{ $flight['inbound']['arrival_airport'] }})</p>
-                            <p>Departure Time: {{ $flight['inbound']['departure_time'] }}</p>
-                            <p>Arrival Airport: ({{ $flight['inbound']['departure_airport'] }})</p>
-                            <p>Arrival Time: {{ $flight['inbound']['arrival_time'] }}</p>
-                            <p>Duration: {{ $flight['inbound']['duration'] }} minutes</p>
-                        </div>
-                    </div>
-                @else
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4>One-way Trip</h4>
-                            <p>Airline: ({{ $flight['airline'] }})</p>
-                            <p>Flight Number: {{ $flight['number'] }}</p>
-                            <p>Departure Airport: ({{ $flight['departure_airport'] }})</p>
-                            <p>Departure Time: {{ $flight['departure_time'] }}</p>
-                            <p>Arrival Airport: ({{ $flight['arrival_airport'] }})</p>
-                            <p>Arrival Time: {{ $flight['arrival_time'] }}</p>
-                            <p>Duration: {{ $flight['duration'] }} minutes</p>
-                        </div>
-                    </div>
-                @endif
-            @endforeach
-        @else
-            <p>No flights found.</p>
-        @endif
-    </div>
-
-
+                        @else
+                            <tr>
+                                <td>{{ $flight['airline'] }}</td>
+                                <td>{{ $flight['number'] }}</td>
+                                <td>{{ $flight['departure_airport'] }}</td>
+                                <td>{{ $flight['departure_time'] }}</td>
+                                <td>{{ $flight['arrival_airport'] }}</td>
+                                <td>{{ $flight['arrival_time'] }}</td>
+                                <td>{{ $flight['duration'] }} minutes</td>
+                                <td>{{ ((float) $flight['price']) }}</td>
+                            </tr>
+                        @endif
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @else
+        <p>No flights available for the selected departure time.</p>
+    @endif
+</div>
 
 
     <!-- Your flight search form goes here -->
