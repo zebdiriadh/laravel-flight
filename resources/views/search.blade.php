@@ -70,44 +70,39 @@
             <h2>Flight Results:</h2>
             <div class="table-responsive">
                 <form action="{{ route('search') }}" method="GET">
-                    <!-- Hidden fields to retain search parameters -->
-                    <input type="hidden" name="origin" value="{{ request('origin') }}">
-                    <input type="hidden" name="destination" value="{{ request('destination') }}">
-                    <input type="hidden" name="departure_time" value="{{ request('departure_time') }}">
-                    <input type="hidden" name="return_time" value="{{ request('return_time') }}">
 
                     <table class="table table-bordered table-striped">
                         <thead class="thead-light">
                             <tr>
                                 <th><a
-                                        href="{{ route('search', http_build_query(array_merge(request()->all(), ['sort' => 'airline']))) }}">Airline</a>
+                                        href="{{ route('search', http_build_query(array_merge($request->all(), ['sort' => 'airline']))) }}">Airline</a>
                                 </th>
                                 <th><a
-                                        href="{{ route('search', http_build_query(array_merge(request()->all(), ['sort' => 'flight_number']))) }}">Flight
+                                        href="{{ route('search', http_build_query(array_merge($request->all(), ['sort' => 'flight_number']))) }}">Flight
                                         Number</a></th>
                                 <th><a
-                                        href="{{ route('search', http_build_query(array_merge(request()->all(), ['sort' => 'departure_airport']))) }}">Departure
+                                        href="{{ route('search', http_build_query(array_merge($request->all(), ['sort' => 'departure_airport']))) }}">Departure
                                         Airport</a></th>
                                 <th><a
-                                        href="{{ route('search', http_build_query(array_merge(request()->all(), ['sort' => 'departure_time']))) }}">Departure
+                                        href="{{ route('search', http_build_query(array_merge($request->all(), ['sort' => 'departure_time']))) }}">Departure
                                         Time</a></th>
                                 <th><a
-                                        href="{{ route('search', http_build_query(array_merge(request()->all(), ['sort' => 'arrival_airport']))) }}">Arrival
+                                        href="{{ route('search', http_build_query(array_merge($request->all(), ['sort' => 'arrival_airport']))) }}">Arrival
                                         Airport</a></th>
                                 <th><a
-                                        href="{{ route('search', http_build_query(array_merge(request()->all(), ['sort' => 'arrival_time']))) }}">Arrival
+                                        href="{{ route('search', http_build_query(array_merge($request->all(), ['sort' => 'arrival_time']))) }}">Arrival
                                         Time</a></th>
                                 <th><a
-                                        href="{{ route('search', http_build_query(array_merge(request()->all(), ['sort' => 'duration']))) }}">Duration</a>
+                                        href="{{ route('search', http_build_query(array_merge($request->all(), ['sort' => 'duration']))) }}">Duration</a>
                                 </th>
                                 <th><a
-                                        href="{{ route('search', http_build_query(array_merge(request()->all(), ['sort' => 'distance']))) }}">Distance
+                                        href="{{ route('search', http_build_query(array_merge($request->all(), ['sort' => 'distance']))) }}">Distance
                                         (km)</a></th>
                                 <th><a
-                                        href="{{ route('search', http_build_query(array_merge(request()->all(), ['sort' => 'price']))) }}">Price</a>
+                                        href="{{ route('search', http_build_query(array_merge($request->all(), ['sort' => 'price']))) }}">Price</a>
                                 </th>
                                 <th><a
-                                        href="{{ route('search', http_build_query(array_merge(request()->all(), ['sort' => 'total_price']))) }}">Total</a>
+                                        href="{{ route('search', http_build_query(array_merge($request->all(), ['sort' => 'total_price']))) }}">Total</a>
                                 </th>
 
                             </tr>
@@ -177,7 +172,7 @@
                 </form>
             </div>
             <!-- Pagination links with search parameters -->
-            {{ $paginatedFlights->appends(request()->query())->links() }}
+            {{ $paginatedFlights->appends($request->query())->links() }}
         @else
             <p>No flights available for the provided search.</p>
         @endif

@@ -177,7 +177,7 @@ class FlightController extends Controller
         });
 
         // Pass the merged flights, airlines, and airports data to the view
-        return view('search', compact('allFlights', 'airlines', 'airports', 'paginatedFlights'));
+        return view('search', compact('allFlights', 'airlines', 'airports', 'paginatedFlights','request'));
     }
 
     private function calculateDistance($lat1, $lon1, $lat2, $lon2)
