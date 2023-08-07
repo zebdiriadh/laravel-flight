@@ -2,19 +2,35 @@
 
 namespace App\Http\Controllers;
 
+
 use DateInterval;
 use DateTime;
 use DateTimeZone;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
+
+
 
 class FlightController extends Controller
 {
     public function search(Request $request)
     {
-        $jsonData = File::get(public_path('/Files/listFlights.json'));
+        try {
+
+            $apiRequest = Request::create(url('/data/index'), 'GET');
+            $response = app()->handle($apiRequest);
+
+            // Get the JSON response body
+            $jsonData = $response->getContent();
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+        }
+
+        // Decode the JSON data
+        $data = json_decode($jsonData, true);
+
         $flightList = json_decode($jsonData, true);
         $airports = collect($flightList['airports']);
 
@@ -24,8 +40,8 @@ class FlightController extends Controller
         $airports = collect($flightList['airports']);
 
         // Get the user input from the search form
-        $originAirportCode = $request->input('origin');
-        $destinationAirportCode = $request->input('destination');
+        $originAirportCode = strtoupper($request->input('origin'));
+        $destinationAirportCode = strtoupper($request->input('destination'));
         $departureTime = strtotime($request->input('departure_time'));
         $returnTime = strtotime($request->input('return_time'));
 
@@ -149,7 +165,7 @@ class FlightController extends Controller
         $offset = ($currentPage - 1) * $perPage;
 
         // Check if the search results are already cached
-        $cacheKey = 'flight_search_results_' . md5($request->fullUrl());
+        $cacheKey =  $request->fullUrl();
         $paginatedFlights = Cache::remember($cacheKey, now()->addMinutes(30), function () use ($allFlights, $offset, $perPage, $currentPage) {
             return new LengthAwarePaginator(
                 $allFlights->slice($offset, $perPage),

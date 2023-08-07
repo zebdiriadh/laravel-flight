@@ -16,10 +16,16 @@
             <form action="{{ route('search') }}" method="GET">
                 <div class="form-group">
                     <label for="origin">Origin:</label>
+                    <p>
+                        <small>Example: YUL, YVR , YEG etc </small>
+                    </p>
                     <input type="text" name="origin" id="origin" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="destination">Destination:</label>
+                    <p>
+                        <small>Example: YUL, YVR , YEG etc </small>
+                    </p>
                     <input type="text" name="destination" id="destination" class="form-control" required>
                 </div>
                 <div class="form-group">
@@ -33,10 +39,16 @@
             <form action="{{ route('search') }}" method="GET">
                 <div class="form-group">
                     <label for="origin">Origin:</label>
+                    <p>
+                        <small>Example: YUL, YVR , YEG etc </small>
+                    </p>
                     <input type="text" name="origin" id="origin" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="destination">Destination:</label>
+                    <p>
+                        <small>Example: YUL, YVR , YEG etc </small>
+                    </p>
                     <input type="text" name="destination" id="destination" class="form-control" required>
                 </div>
                 <div class="form-group">
