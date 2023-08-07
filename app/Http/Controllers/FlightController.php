@@ -166,13 +166,13 @@ class FlightController extends Controller
 
         // Check if the search results are already cached
         $cacheKey =  $request->fullUrl();
-        $paginatedFlights = Cache::remember($cacheKey, now()->addMinutes(30), function () use ($allFlights, $offset, $perPage, $currentPage) {
+        $paginatedFlights = Cache::remember($cacheKey, now()->addMinutes(30), function () use ($request, $allFlights, $offset, $perPage, $currentPage) {
             return new LengthAwarePaginator(
                 $allFlights->slice($offset, $perPage),
                 $allFlights->count(),
                 $perPage,
                 $currentPage,
-                ['path' => request()->url(), 'query' => request()->query()]
+                ['path' => $request->url(), 'query' => $request->query()]
             );
         });
 
